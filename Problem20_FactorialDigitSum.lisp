@@ -5,10 +5,10 @@
 ;   10000                         558ms              52 304ms
 ;  100000                      68 057ms         not evaluable
 
+(load "commons.lisp")
+
 (defun factorial (n) (do ((i 1 (+ i 1)) (acc 1 (* acc i))) ((> i n) acc)))
 
-(defun digitsum (n) (do ((temp n (floor temp 10)) (sum 0 (+ sum (mod temp 10)))) ((zerop temp) sum)))
-
-(defun main () (print 'Began) (finish-output) (time (print (digitsum (factorial 100000)))))
+(defun main () (print 'Began) (finish-output) (time (print (commons:digitsum (factorial 100)))))
 
 (main)
