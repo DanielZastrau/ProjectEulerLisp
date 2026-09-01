@@ -11,8 +11,4 @@
                     (loop while (zerop (mod current prime)) do (setf current (the fixnum (/ current prime)) ) ) )
         (if (= current 1) maximum current) ) )
 
-(defun main () (print "Began") (finish-output) (time (print (find-largest-prime-factor 600851475143))))
-;  okay here we get to the problem that is mentioned in the docstring of the eratosthenes function
-;  technically 
-
-(main)
+(print "Began") (finish-output) (time (print (find-largest-prime-factor 600851475143)))
