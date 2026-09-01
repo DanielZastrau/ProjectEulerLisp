@@ -1,0 +1,20 @@
+(defun elem-list (grid-width init-diff) (declare (type fixnum grid-width init-diff))
+    (let ((steps (/ (- grid-width 1) 2))  (diff 0))
+    (loop for step-count from 0 below steps
+        do (setf diff (+ diff init-diff (* step-count 8)))
+        collect (+ 1 diff))))
+
+(defun main (grid-width) (declare (type fixnum grid-width))
+    (let (  (first-diag (elem-list grid-width 2))
+            (second-diag (elem-list grid-width 4))
+            (third-diag (elem-list grid-width 6))
+            (fourth-diag (elem-list grid-width 8))
+            (total 1))
+        (print first-diag)
+        (print second-diag)
+        (print third-diag)
+        (print fourth-diag)
+        (setf total (+ total (reduce #'+ first-diag) (reduce '+ second-diag) (reduce '+ third-diag) (reduce '+ fourth-diag)))
+    total))
+
+(print "Began") (finish-output) (time (print (main 1001)))
