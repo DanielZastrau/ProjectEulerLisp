@@ -10,11 +10,7 @@
             (third-diag (elem-list grid-width 6))
             (fourth-diag (elem-list grid-width 8))
             (total 1))
-        (print first-diag)
-        (print second-diag)
-        (print third-diag)
-        (print fourth-diag)
-        (setf total (+ total (reduce #'+ first-diag) (reduce '+ second-diag) (reduce '+ third-diag) (reduce '+ fourth-diag)))
+        (setf total (+ total (reduce #'+ first-diag) (reduce #'+ second-diag) (reduce #'+ third-diag) (reduce #'+ fourth-diag)))
     total))
 
 (print "Began") (finish-output) (time (print (main 1001)))

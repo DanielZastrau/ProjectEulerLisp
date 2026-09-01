@@ -1,11 +1,18 @@
 (defpackage :commons    ; defines the namespace
     (:use :cl)    ; makes the default namespace (default functions) available in the defined namespace
-    (:export    :digitsum
+    (:export    :factorial
+                :digits
+                :digitsum
                 :eratosthenes))
 
 (in-package :commons)    ; sets the active namespace
 
-(defun digitsum (n) (do ((temp n (floor temp 10)) (sum 0 (+ sum (mod temp 10)))) ((zerop temp) sum)))
+(declaim (optimize (speed 3) (safety 0) (debug 0)))
+
+(defun factorial (n) (declare (type fixnum n)) (do ((i 1 (+ i 1)) (acc 1 (* acc i))) ((> i n) acc)))
+
+(defun digits (n) (declare (type fixnum n)) (let ((tmp n) (d '())) (loop while (> tmp 0) do (multiple-value-bind (q r) (truncate tmp 10) (setf tmp q) (push r d))) ) )
+(defun digitsum (n) (declare (type fixnum n)) (do ((temp n (floor temp 10)) (sum 0 (+ sum (mod temp 10)))) ((zerop temp) sum)))
 
 (defun eratosthenes (limit)
     ; Calculates (* 5 (expt 10 8)) in under 3s.  The corresponding python implementation for 10**8 takes 4 seconds.

@@ -7,8 +7,6 @@
 
 (load "commons.lisp")
 
-(defun factorial (n) (do ((i 1 (+ i 1)) (acc 1 (* acc i))) ((> i n) acc)))
-
-(defun main () (print 'Began) (finish-output) (time (print (commons:digitsum (factorial 100)))))
+(defun main () (print 'Began) (finish-output) (time (print (commons:digitsum (commons:factorial 100)))))
 
 (main)
