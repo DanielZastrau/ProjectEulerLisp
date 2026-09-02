@@ -1,5 +1,3 @@
-(load "commons.lisp")
-
 (defun main (limit) (declare (type fixnum limit))
     (let ((primes (commons:eratosthenes limit))  (powers '())) (declare (type list primes))
         (loop for prime in primes do (push (floor (/ (log limit 10) (log prime 10))) powers) )
