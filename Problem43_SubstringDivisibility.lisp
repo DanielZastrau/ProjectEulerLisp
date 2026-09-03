@@ -13,8 +13,10 @@
             (n (+ n1 n2 n3))) (declare (type fixnum n1 n2 n3 n))
     (zerop (mod n div))))
 
-(defun has-special-property (d) (declare (type list d))
-    (and (test d 1 2) (test d 2 3) (test d 3 5) (test d 4 7) (test d 5 11) (test d 6 13) (test d 7 17)))
+(defmacro code-expansion-macro (d &rest primes)
+    `(and ,@(loop for p in primes for idx from 1 collect `(test ,d ,idx ,p))))
+
+(defun has-special-property (d) (declare (type list d)) (code-expansion-macro d 2 3 5 7 11 13 17))
 
 (defun main ()
     (let ((sum 0)) (declare (type fixnum sum))
