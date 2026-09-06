@@ -1,3 +1,7 @@
+;;;; the difference between inlining the "next-collatz" call and not is between ~115ms and ~75ms
+
+(declaim (inline next-collatz))
+
 (defun next-collatz (n)
     (if (zerop (mod n 2))
         (ash n -1)
