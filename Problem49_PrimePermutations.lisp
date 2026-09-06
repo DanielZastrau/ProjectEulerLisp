@@ -6,7 +6,7 @@
         (loop for j from (+ 1 i) below (length l) do
             (setf n1 (nth i l) n2 (nth j l))
             (setf diff (- n2 n1))
-            (if (member (+ n2 diff) l) (push (list n1 n2 (+ n2 diff)) progressions))))
+            (when (member (+ n2 diff) l) (push (list n1 n2 (+ n2 diff)) progressions))))
     (first progressions)))
 
 (defun main () ()
@@ -21,7 +21,7 @@
         (setf perms (remove-if-not #'(lambda (x) (> x 1000)) perms))
         (setf perms (sort perms #'<))
         (setf progrs (arithmetic-progression perms))
-        (if progrs (setf out (push progrs out))))
-    (print (remove-duplicates out :test #'equal))))
+        (when progrs (pushnew progrs out :test #'equal)))
+    out))
 
 (print "Began") (finish-output) (time (print (main)))
