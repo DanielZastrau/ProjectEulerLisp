@@ -1,5 +1,7 @@
 (defun triangle-number (n) (declare (type fixnum n)) (* 0.5 n (+ n 1)))
+
 (defun triangle-numbers () (loop for n from 1 to 100 collect (triangle-number n)))
+
 (defun parse-words-uiop (filepath)
     (let* ((raw (uiop:read-file-string filepath))  (tokens (uiop:split-string raw :separator '(#\,))))
     ;; Strip bounding quotation marks and whitespace

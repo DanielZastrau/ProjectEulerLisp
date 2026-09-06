@@ -1,0 +1,16 @@
+(defun prime-factors (n primes)
+    (let ((factors 0))
+    (dolist (prime primes factors)
+        (if (zerop (mod n prime))
+            (progn  (incf factors)
+                    (setf n (truncate n prime))))
+        (if (> prime n) (return-from prime-factors factors)))))
+
+(defun main (amount)
+    (let ((primes (commons:eratosthenes (expt 10 6))))
+    (do ((n 1000 (+ n 1)) (consec 0)) ((= consec 4) (- n 3))
+        (if (= amount (prime-factors n primes))
+            (incf consec)
+            (setf consec 0)))))
+
+(defun execute () (print "Began") (finish-output) (time (print (main 4))))
