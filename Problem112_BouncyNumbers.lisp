@@ -27,4 +27,4 @@
         ;; thus, we use the cross multiplication comparison
         (if (= (* 100 count) (* 99 n)) (return-from main n))))))
 
-(defun execute () (print "Began") (finish-output) (time (print (main))))
+(defun execute () (print "Began") (finish-output) (time (print (main))))m2
