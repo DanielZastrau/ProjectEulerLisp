@@ -1,0 +1,11 @@
+(defun main ()
+    (let ((n 1) (s 0) (modulos (expt 10 10)))
+    (dotimes (iteration 7830457)
+        (incf n n)
+        (setf n (mod n modulos)))
+    (dotimes (iteration 28433)
+        (incf s n)
+        (setf s (mod s modulos)))
+    (+ s 1)))
+
+(defun execute () (print "Began") (finish-output) (time (print (main))))
