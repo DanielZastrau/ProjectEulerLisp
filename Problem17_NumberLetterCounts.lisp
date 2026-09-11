@@ -1,0 +1,28 @@
+(defparameter *counts* (list (cons 1 3) (cons 2 3) (cons 3 5) (cons 4 4)
+                        (cons 5 4) (cons 6 3) (cons 7 5) (cons 8 5)
+                        (cons 9 4) (cons 10 3) (cons 11 6) (cons 12 6)
+                        (cons 13 8) (cons 14 8) (cons 15 7) (cons 16 7)
+                        (cons 17 9) (cons 18 8) (cons 19 8)
+                        (cons 20 6) (cons 30 6) (cons 40 5) (cons 50 5)
+                        (cons 60 5) (cons 70 7) (cons 80 6) (cons 90 6)
+                        (cons 100 7)))
+
+(defun get-count (key) (or (cdr (assoc key *counts*)) 0))
+
+(defun letter-count (n)
+    (cond ((= n 0) 0)
+        ((< n 20) (get-count n))
+        ((< n 100) (multiple-value-bind (tens ones) (floor n 10)
+            (+ (letter-count ones) (get-count (* 10 tens)))))
+        ((< n 1000) (multiple-value-bind (hundreds remainder) (floor n 100)
+            (if (zerop remainder)
+                (+ (letter-count hundreds) (get-count 100))
+                (+ (letter-count hundreds) (get-count 100) 3 (letter-count remainder)))))
+        ((= n 1000) 11)))
+
+(defun main ()
+    (let ((count 0))
+    (do ((n 1 (+ 1 n))) ((> n 1000) count)
+        (incf count (letter-count n)))))
+
+(defun execute () (print "Began") (terpri) (time (print (main))))
