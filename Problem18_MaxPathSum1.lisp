@@ -22,6 +22,6 @@
 (defun max-path-sum (pyramid)
     (car (reduce #'merge-rows pyramid :from-end t)))
 
-(defun main () (print (max-path-sum *pyramid*)))
+(defun main () (max-path-sum *pyramid*))
 
 (defun execute () (print "Began") (terpri) (time (print (main))))
