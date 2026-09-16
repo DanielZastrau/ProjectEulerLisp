@@ -93,7 +93,7 @@ t)
 
 (defun get-permutations (frequencies curr-perm len depth result)
     (if (= len depth)
-        (cons curr-perm result)
+        (cons (reverse curr-perm) result)
         (dolist (cell frequencies result)
             (let ((val (car cell)) (count (cdr cell)))
             (when (plusp count)
