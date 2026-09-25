@@ -1,5 +1,6 @@
-(defpackage :commons    ; defines the namespace
-    (:use :cl)    ; makes the default namespace (default functions) available in the defined namespace
+(defpackage #:project-euler/commons    ; defines the namespace; the name maps to this file for ASDF
+    (:nicknames #:commons)    ; allows the short form commons:digits
+    (:use #:cl)    ; makes the default namespace (default functions) available in the defined namespace
     (:export    #:palindrome-p
                 #:prime-p
                 #:factorial
@@ -9,9 +10,11 @@
                 #:eratosthenes
                 #:pythagoreantriplet
                 #:count-frequencies
-                #:distinct-permutations))
+                #:distinct-permutations
+                #:problem-data
+                #:read-words))
 
-(in-package :commons)    ; sets the active namespace
+(in-package #:project-euler/commons)    ; sets the active namespace
 
 (declaim (inline prime-p palindrome-p reverse-num digits factorial))
 
@@ -129,3 +132,14 @@ t)
     (if (zerop mode)
         (call-perm-fn (count-frequencies l) (length l))
         (call-perm-fn l len)))
+
+(defun problem-data (filename)
+    "Absolute path of FILENAME inside problem_data/, independent of the current working directory."
+    (asdf:system-relative-pathname "project-euler" (concatenate 'string "problem_data/" filename)))
+
+(defun read-words (filepath)
+    "Reads a file of comma separated, double quoted words into a list of strings."
+    (let* ((raw (uiop:read-file-string filepath))  (tokens (uiop:split-string raw :separator '(#\,))))
+    ;; Strip bounding quotation marks and whitespace
+    (loop for token in tokens for trimmed = (string-trim '(#\" #\Space #\Newline #\Return) token)
+        when (plusp (length trimmed)) collect trimmed)))

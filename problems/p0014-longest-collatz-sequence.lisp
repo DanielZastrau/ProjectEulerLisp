@@ -1,0 +1,32 @@
+(defpackage #:project-euler/problems/p0014-longest-collatz-sequence
+    (:nicknames #:p0014)
+    (:use #:cl #:project-euler/commons)
+    (:export #:solve))
+(in-package #:project-euler/problems/p0014-longest-collatz-sequence)
+
+;;;; the difference between inlining the "next-collatz" call and not is between ~115ms and ~75ms
+
+(declaim (inline next-collatz))
+
+(defun next-collatz (n)
+    (if (zerop (mod n 2))
+        (ash n -1)
+        (+ 1 (* 3 n))))
+
+(defun collatz-length (n sequence-lengths)
+    (let ((len 1) (num n))
+    (loop while (not (= num 1)) do
+        (incf len 1)
+        (setf num (next-collatz num))
+        (if (< num n) (return-from collatz-length (+ len (aref sequence-lengths num)))))
+    len))
+
+(defun main (limit)
+    (let ((mx 0) (mx-e 0) (l 0) (sequence-lengths (make-array limit :initial-element 1)))
+    (loop for n from 2 below limit do
+        (setf l (collatz-length n sequence-lengths))
+        (setf (aref sequence-lengths n) l)
+        (if (> l mx) (setf mx l mx-e n)))
+    mx-e))
+
+(defun solve () (main (expt 10 6)))
